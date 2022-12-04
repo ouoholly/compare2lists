@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 ############################################
 ## Page info
 ############################################
@@ -65,23 +66,41 @@ col2.markdown("---")
 
 res1.markdown(f"**Below are the items in `{list1_name}` but not in `{list2_name}`**")
 in1_notin2 = list(set(txt1) - set(txt2))
+
+df_in1_notin2 = pd.DataFrame(in1_notin2)
+csv_in1_notin2 = df_in1_notin2.to_csv().encode('utf-8')
+
 in1_notin2 = '\n\r'.join(e for e in in1_notin2) #turn list to string
 
 if not in1_notin2:
       res1.write("None. The two lists above are the same.")
 else:
       res1.write(in1_notin2)
+      res1.download_button(label="Download as CSV", 
+                              data=csv_in1_notin2, 
+                              file_name=f"In_{list1_name}_NotIn_{list2_name}.csv", 
+                              mime='text/csv')
+
 
 #######
 
 res2.markdown(f"**Below are the items in `{list2_name}` but not in `{list1_name}`**")
 in2_notin1 = list(set(txt2) - set(txt1))
+
+df_in2_notin1 = pd.DataFrame(in2_notin1)
+csv_in2_notin1 = df_in2_notin1.to_csv().encode('utf-8')
+
 in2_notin1 = '\n\r'.join(e for e in in2_notin1) #turn list to string
 
 if not in2_notin1:
       res2.write("None. The two lists above are the same.")
 else:
       res2.write(in2_notin1)
+      res2.download_button(label="Download as CSV", 
+                                    data=csv_in2_notin1, 
+                                    file_name=f"In_{list2_name}_NotIn_{list1_name}.csv", 
+                                    mime='text/csv')
+
 
 
 ############################################
