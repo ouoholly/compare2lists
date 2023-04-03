@@ -72,15 +72,6 @@ csv_in1_notin2 = df_in1_notin2.to_csv().encode('utf-8')
 
 in1_notin2 = '\n\r'.join(e for e in in1_notin2) #turn list to string
 
-if not in1_notin2:
-      res1.write("None. The two lists above are the same.")
-else:
-      res1.write(in1_notin2)
-      res1.download_button(label="Download as CSV", 
-                              data=csv_in1_notin2, 
-                              file_name=f"In_{list1_name}_NotIn_{list2_name}.csv", 
-                              mime='text/csv')
-
 
 #######
 
@@ -92,8 +83,23 @@ csv_in2_notin1 = df_in2_notin1.to_csv().encode('utf-8')
 
 in2_notin1 = '\n\r'.join(e for e in in2_notin1) #turn list to string
 
-if not in2_notin1:
+#######
+
+if not in1_notin2 and not in2_notin1:
+      res1.write("None. The two lists above are the same.")
+elif not in1_notin2:
+      res1.write("None.")
+else:
+      res1.write(in1_notin2)
+      res1.download_button(label="Download as CSV", 
+                              data=csv_in1_notin2, 
+                              file_name=f"In_{list1_name}_NotIn_{list2_name}.csv", 
+                              mime='text/csv')
+
+if not in2_notin1 and not in1_notin2:
       res2.write("None. The two lists above are the same.")
+elif not in2_notin1:
+      res1.write("None.")
 else:
       res2.write(in2_notin1)
       res2.download_button(label="Download as CSV", 
